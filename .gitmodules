@@ -1,0 +1,30 @@
+[submodule "lib/forge-std"]
+	path = lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "poc_phoenix/lib/forge-std"]
+	path = poc_phoenix/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "poc_phoenix/lib/account-abstraction"]
+	path = poc_phoenix/lib/account-abstraction
+	url = https://github.com/eth-infinitism/account-abstraction.git
+[submodule "poc_phoenix/lib/openzeppelin-contracts"]
+	path = poc_phoenix/lib/openzeppelin-contracts
+	url = https://github.com/openzeppelin/openzeppelin-contracts
+[submodule "foundry_poc_manual/lib/account-abstraction"]
+	path = foundry_poc_manual/lib/account-abstraction
+	url = https://github.com/eth-infinitism/account-abstraction
+[submodule "foundry_poc_manual/lib/forge-std"]
+	path = foundry_poc_manual/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "foundry_poc_manual/lib/v3-periphery"]
+	path = foundry_poc_manual/lib/v3-periphery
+	url = https://github.com/Uniswap/v3-periphery
+[submodule "foundry_poc_manual/lib/openzeppelin-contracts"]
+	path = foundry_poc_manual/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "foundry_poc_manual/foundry_poc_minimal/lib/forge-std"]
+	path = foundry_poc_manual/foundry_poc_minimal/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "foundry_poc_manual/foundry_poc_minimal/lib/account-abstraction"]
+	path = foundry_poc_manual/foundry_poc_minimal/lib/account-abstraction
+	url = https://github.com/eth-infinitism/account-abstraction
