@@ -31,7 +31,9 @@ contract StakingContract {
         operatorInfo.name = _name;
     }
 
-    function addValidators(uint256 _operatorIndex, uint256 _amount, bytes memory _publicKeys, bytes memory _signatures) public {
+    function addValidators(uint256 _operatorIndex, uint256 _amount, bytes memory _publicKeys, bytes memory _signatures)
+        public
+    {
         Operator storage operatorInfo = operators[_operatorIndex];
         require(msg.sender == operatorInfo.addr, "Only operator");
         for (uint256 i = 0; i < _amount; i++) {
@@ -75,12 +77,28 @@ contract StakingContract {
         }
     }
 
-    function getOperator(uint256 _operatorIndex) public view returns (address, string memory, uint256, uint256, uint256, uint256, uint256) {
+    function getOperator(uint256 _operatorIndex)
+        public
+        view
+        returns (address, string memory, uint256, uint256, uint256, uint256, uint256)
+    {
         Operator storage operatorInfo = operators[_operatorIndex];
-        return (operatorInfo.addr, operatorInfo.name, operatorInfo.keys, operatorInfo.funded, operatorInfo.limit, operatorInfo.limitSetTimestamp, 0);
+        return (
+            operatorInfo.addr,
+            operatorInfo.name,
+            operatorInfo.keys,
+            operatorInfo.funded,
+            operatorInfo.limit,
+            operatorInfo.limitSetTimestamp,
+            0
+        );
     }
 
-    function getValidator(uint256 _operatorIndex, bytes memory _publicKey) public view returns (bytes memory, bytes memory) {
+    function getValidator(uint256 _operatorIndex, bytes memory _publicKey)
+        public
+        view
+        returns (bytes memory, bytes memory)
+    {
         Operator storage operatorInfo = operators[_operatorIndex];
         for (uint256 i = 0; i < operatorInfo.keys; i++) {
             // A simple byte comparison for the PoC
@@ -92,10 +110,6 @@ contract StakingContract {
     }
 
     function withdraw(bytes memory _publicKey) public {
-        console.log("Withdraw function called!"); // Added log
-        // This is a placeholder. In a real contract, this would handle the withdrawal process.
-        // The important part for the PoC is that this function will not be callable
-        // for the removed validator.
-        revert("Withdrawal failed");
+        revert("Withdrawal failed - new message");
     }
 }
