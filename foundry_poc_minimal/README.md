@@ -1,66 +1,34 @@
-## Foundry
+# PoC for ERC-4337 EntryPoint Gas Accounting Vulnerability
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This repository contains a minimal, self-contained Foundry project to demonstrate a critical gas accounting vulnerability in `EntryPoint.sol` (v0.8.0).
 
-Foundry consists of:
+The vulnerability allows a malicious actor to drain a paymaster's staked funds by repeatedly forcing its `postOp` function to run out of gas (OOG), causing the `EntryPoint` to charge the paymaster for the full gas stipend instead of the gas actually consumed.
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## How to Reproduce
 
-## Documentation
+**Prerequisites:**
+- [Foundry](https://getfoundry.sh/) must be installed.
 
-https://book.getfoundry.sh/
+1. **Clone the repository:**
+   ```sh
+   git clone <repository_url>
+   cd <repository_directory>
+   ```
 
-## Usage
+2. **Install Dependencies:**
+   The required libraries (`account-abstraction` and `forge-std`) are included as submodules. To initialize them, run:
+   ```sh
+   git submodule update --init --recursive
+   ```
 
-### Build
+3. **Run the Test:**
+   Execute the specific test file for the PoC:
+   ```sh
+   forge test --match-path test/EntryPointRealTest.t.sol
+   ```
 
-```shell
-$ forge build
-```
+## Expected Outcome
 
-### Test
+The test `testPostOpOOGDrainOnRealEntryPoint()` should **PASS**. 
 
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+This result proves that even when the `handleOps` transaction reverts due to a `postOp` failure, the paymaster's staked funds in the `EntryPoint` are still drained by an amount proportional to the gas stipend. This confirms the economic griefing vulnerability in the real, unmodified `EntryPoint.sol` contract.
